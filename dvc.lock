@@ -10,14 +10,14 @@ stages:
     outs:
     - path: data/raw/raw.csv
       hash: md5
-      md5: ca3e1a44362709c1356dcf6e064557be
+      md5: 7d043a8d6ad44434c3132f6184000615
       size: 116187
   preprocess_data:
     cmd: python -m src.data_preprocessing.preprocess_data
     deps:
     - path: data/raw/raw.csv
       hash: md5
-      md5: ca3e1a44362709c1356dcf6e064557be
+      md5: 7d043a8d6ad44434c3132f6184000615
       size: 116187
     - path: src/data_preprocessing/preprocess_data.py
       hash: md5
@@ -30,27 +30,27 @@ stages:
     outs:
     - path: artifacts/[features]_mean_imputer.joblib
       hash: md5
-      md5: 397cd6d57fbf1e32dfa5eb539177e3fc
+      md5: 7f1b0f00913efb8ea695c9d23d5c3564
       size: 1511
     - path: data/preprocessed/test_preprocessed.csv
       hash: md5
-      md5: 35401d76024a86e10d263b8359d462f8
-      size: 33454
+      md5: cbe79d17592284416a124e44f2d116ad
+      size: 33634
     - path: data/preprocessed/train_preprocessed.csv
       hash: md5
-      md5: ef81ffdcae7a020c8aac577d6f85d1b8
-      size: 99068
+      md5: 0dabf1ae5e2fa0d01fa29807eb22e091
+      size: 98502
   engineer_features:
     cmd: python -m src.feature_engineering.engineer_features
     deps:
     - path: data/preprocessed/test_preprocessed.csv
       hash: md5
-      md5: 35401d76024a86e10d263b8359d462f8
-      size: 33454
+      md5: cbe79d17592284416a124e44f2d116ad
+      size: 33634
     - path: data/preprocessed/train_preprocessed.csv
       hash: md5
-      md5: ef81ffdcae7a020c8aac577d6f85d1b8
-      size: 99068
+      md5: 0dabf1ae5e2fa0d01fa29807eb22e091
+      size: 98502
     - path: src/feature_engineering/engineer_features.py
       hash: md5
       md5: f8446b81a185b5c5d4b06fd60a3b9b9f
@@ -58,30 +58,30 @@ stages:
     outs:
     - path: artifacts/[features]_scaler.joblib
       hash: md5
-      md5: cbf6200deb47a8b7155b73dde816d435
+      md5: 45c81cb7cad74e7273179097589f33a3
       size: 2135
     - path: data/processed/test_processed.csv
       hash: md5
-      md5: 121de3ad3ebe4bd14a7b05923aa7d6e2
-      size: 85133
+      md5: 280dec3c110066a4a5229a15c5c116d0
+      size: 84663
     - path: data/processed/train_processed.csv
       hash: md5
-      md5: 9cca32524ea03d12e2ad05b293b00f70
-      size: 252057
+      md5: af317659ba90e68278c4230e25607f85
+      size: 251002
   train:
     cmd: python -m src.model_training.train_model
     deps:
     - path: data/processed/train_processed.csv
       hash: md5
-      md5: 9cca32524ea03d12e2ad05b293b00f70
-      size: 252057
+      md5: af317659ba90e68278c4230e25607f85
+      size: 251002
     - path: src/model_training/train_model.py
       hash: md5
-      md5: ff14b674803d9ead6bbac8f84890b977
-      size: 6033
+      md5: 8369f7f342d68e340ecf484c647a21c8
+      size: 6827
     params:
       params.yaml:
-        train.batch_size: 32
+        train.batch_size: 16
         train.dropout_rate: 0.3
         train.epochs: 100
         train.hidden_layer_1_neurons: 64
@@ -94,11 +94,11 @@ stages:
       size: 617
     - path: metrics/training.json
       hash: md5
-      md5: faa8f33f583937b7a6c45a824845cb6d
-      size: 140
+      md5: 4da1c88da9199783d4f5f074097a289f
+      size: 138
     - path: models/model.keras
       hash: md5
-      md5: c81811b2e67fbc1022e984d20d916392
+      md5: 4fb6ccdd933d48fae3983c292e0692da
       size: 79417
   evaluate:
     cmd: python -m src.model_evaluation.evaluate_model
@@ -109,11 +109,11 @@ stages:
       size: 617
     - path: data/processed/test_processed.csv
       hash: md5
-      md5: 121de3ad3ebe4bd14a7b05923aa7d6e2
-      size: 85133
+      md5: 280dec3c110066a4a5229a15c5c116d0
+      size: 84663
     - path: models/model.keras
       hash: md5
-      md5: c81811b2e67fbc1022e984d20d916392
+      md5: 4fb6ccdd933d48fae3983c292e0692da
       size: 79417
     - path: src/model_evaluation/evaluate_model.py
       hash: md5
@@ -122,5 +122,5 @@ stages:
     outs:
     - path: metrics/evaluation.json
       hash: md5
-      md5: cfd547784f1357716e1ec51d2db3d4fc
-      size: 734
+      md5: 98e07641a96d1ba0c25b16a55de79c46
+      size: 787
