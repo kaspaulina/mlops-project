@@ -13,3 +13,9 @@ metrics/*.json
 
 # Model
 models/*.keras
+
+#Mlflow
+mlruns
+
+# Project
+.env
